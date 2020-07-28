@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import UserContext from './ContextProvider';
 import AdoptionPage from './AdoptionPage/AdoptionPage';
 import { withRouter } from 'react-router-dom';
+import faker from 'faker';
 
 class App extends Component {
 
@@ -11,7 +12,9 @@ class App extends Component {
     loading: true,
     pets: { cats: [], dogs: [] },
     people: [],
-    currentUser: ''
+    currentUser: '',
+    show: false,
+    count: 0
   }
 
   componentDidMount() {
@@ -20,58 +23,62 @@ class App extends Component {
   }
 
   firstPersonOut = () => {
-    if (this.state.people.length <= 1) {
-      clearInterval(this.timer); 
-      return
-    }
     return fetch('http://localhost:8000/api/people', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     })
       .then(res => {
         this.getAllPeople()
+        if (this.state.pets.cats.length) {
+          console.log('cats')
+          this.adoptCats();
+        }
+        else {
+          console.log('dogs')
+          this.adoptDogs();
+        }
       })
   }
 
-
-  pushName = (ev) => {
-    ev.preventDefault();
-    const { name } = ev.target;
-    const people = this.state.people;
+  addName = (name) => {
     fetch('http://localhost:8000/api/people', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: name.value
+        name: name
       })
     })
       .then(() => {
-        this.setState({ people: [...this.state.people, name.value] })
-        this.timer = setInterval(() => {
-          this.firstPersonOut()
-          if (this.state.pets.cats.length) {
-            console.log('cats')
-            this.adoptCats();
-          }
-          else {
-            console.log('dogs')
-            this.adoptDogs();
-          }
-        }, 5000);
+        this.setState({ people: [...this.state.people, name] })
       })
+  }
+
+  pushName = (ev) => {
+    ev.preventDefault();
+    const { name } = ev.target;
+        this.addName(name.value)
+        this.setState({currentUser: name.value})
+        this.timer = setInterval(() => {
+          if (this.state.people.length > 1) {
+            this.firstPersonOut()
+          } else {
+            clearInterval(this.timer)
+            this.timer = setInterval(() => {
+              if (this.state.count < 4) {
+                this.addName(faker.name.findName())
+                this.setState({count : this.state.count + 1})
+              }
+              else {
+                clearInterval(this.timer)
+              }
+            }, 2000)
+          }
+        }, 2000);
   }
 
   adopt = () => {
     this.firstPersonOut()
-    if (this.state.pets.cats.length) {
-      console.log('cats')
-      this.adoptCats();
-    }
-    else {
-      console.log('dogs')
-      this.adoptDogs();
-    }
-    console.log('hello')
+    this.setState({ show: true })
   }
 
 
@@ -152,7 +159,9 @@ class App extends Component {
           adoptDogs: this.adoptDogs,
           getAllPeople: this.getAllPeople,
           pushName: this.pushName,
-          adopt : this.adopt
+          adopt: this.adopt,
+          show: this.state.show,
+          currentUser: this.state.currentUser
         }}
       >
         <main className="App">
