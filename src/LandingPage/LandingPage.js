@@ -25,9 +25,13 @@ export default class LandingPage extends Component {
                 <p>Please get in line to adopt the next dog or cat waiting to be adopted.</p>
                 <p>If you choose to adopt a cat or a dog when it's your turn, select adopt, and our friendly system will walk you through the process of adoption.</p>
                 <p>All of our animals are current on shot and health records and are played with daily to keep them accustomed to being around people.</p>
-                {pets !== null ? <div><h3>Next Cat In Line:</h3><img className="first-cat" src={pets.cats[0].imageURL}></img><h3>Next Dog In Line:</h3><img className="first-dog" src={pets.dogs[0].imageURL}></img></div> : <div>Loading...</div>}
+                <h3>Cats Up For Adoption:</h3>
+                {pets !== null ? pets.cats.map(cat => <div><img src={cat.imageURL} alt={cat.name} /></div>)  : <div>Loading...</div>}
+                <h3>Dogs Up For Adoption:</h3>
+                {pets !== null ? pets.dogs.map(dog => <div><img src={dog.imageURL} alt={dog.name} /></div>)  : <div>Loading...</div>}
                 <button onClick={e => this.props.history.push('/adoption')}>Start Adoption Process</button>
             </section>
         )
     }
 } 
+
