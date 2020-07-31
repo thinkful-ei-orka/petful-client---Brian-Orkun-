@@ -15,9 +15,9 @@ export default class LandingPage extends Component {
         let people = this.context.people;
         console.log(pets)
         console.log(people)
-        if (pets.cats.length === 0 || pets.dogs.length === 0) {
-            return <div>Loading...</div>
-        }
+        // if (pets.cats.length === 0 || pets.dogs.length === 0) {
+        //     return <div>Loading...</div>
+        // }
         return (
             <section className="LandingPage-wrapper">
                 <h1>Welcome to<br />PetFul</h1>

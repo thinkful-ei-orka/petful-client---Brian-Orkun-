@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   firstPersonOut = () => {
-    return fetch('http://localhost:8000/api/people', {
+    return fetch('https://vast-fortress-54223.herokuapp.com/api/people', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     })
@@ -41,7 +41,7 @@ class App extends Component {
   }
 
   addName = (name) => {
-    fetch('http://localhost:8000/api/people', {
+    fetch('https://vast-fortress-54223.herokuapp.com/api/people', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -71,9 +71,9 @@ class App extends Component {
               else {
                 clearInterval(this.timer)
               }
-            }, 2000)
+            }, 5000)
           }
-        }, 2000);
+        }, 5000);
   }
 
   adopt = () => {
@@ -88,7 +88,7 @@ class App extends Component {
 
 
   getAllPets = () => {
-    return fetch('http://localhost:8000/api/pets')
+    return fetch('https://vast-fortress-54223.herokuapp.com/api/pets')
       .then(res => {
         if (res.ok) {
           return res.json()
@@ -103,7 +103,7 @@ class App extends Component {
   }
 
   getAllPeople = () => {
-    return fetch('http://localhost:8000/api/people')
+    return fetch('https://vast-fortress-54223.herokuapp.com/api/people')
       .then(res => {
         if (res.ok) {
           return res.json()
@@ -118,7 +118,7 @@ class App extends Component {
   }
 
   adoptCats = () => {
-    return fetch('http://localhost:8000/api/pets/cats', {
+    return fetch('https://vast-fortress-54223.herokuapp.com/api/pets/cats', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     })
@@ -130,7 +130,7 @@ class App extends Component {
 
 
   adoptDogs = () => {
-    return fetch('http://localhost:8000/api/pets/dogs', {
+    return fetch('https://vast-fortress-54223.herokuapp.com/api/pets/dogs', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     })
