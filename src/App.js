@@ -5,6 +5,7 @@ import UserContext from './ContextProvider';
 import AdoptionPage from './AdoptionPage/AdoptionPage';
 import { withRouter } from 'react-router-dom';
 import faker from 'faker';
+import config from '../src/config';
 
 class App extends Component {
 
@@ -23,7 +24,7 @@ class App extends Component {
   }
 
   firstPersonOut = () => {
-    return fetch('https://vast-fortress-54223.herokuapp.com/api/people', {
+    return fetch(`${config.API_ENDPOINT}/people`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     })
@@ -41,7 +42,7 @@ class App extends Component {
   }
 
   addName = (name) => {
-    fetch('https://vast-fortress-54223.herokuapp.com/api/people', {
+    fetch(`${config.API_ENDPOINT}/people`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -88,7 +89,10 @@ class App extends Component {
 
 
   getAllPets = () => {
-    return fetch('https://vast-fortress-54223.herokuapp.com/api/pets')
+    return fetch(`${config.API_ENDPOINT}/pets`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
       .then(res => {
         if (res.ok) {
           return res.json()
@@ -103,7 +107,10 @@ class App extends Component {
   }
 
   getAllPeople = () => {
-    return fetch('https://vast-fortress-54223.herokuapp.com/api/people')
+    return fetch(`${config.API_ENDPOINT}/people`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
       .then(res => {
         if (res.ok) {
           return res.json()
@@ -113,12 +120,13 @@ class App extends Component {
         }
       })
       .then((data) => {
+        console.log(data)
         this.setState({ people: data })
       })
   }
 
   adoptCats = () => {
-    return fetch('https://vast-fortress-54223.herokuapp.com/api/pets/cats', {
+    return fetch(`${config.API_ENDPOINT}/pets/cats`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     })
@@ -130,7 +138,7 @@ class App extends Component {
 
 
   adoptDogs = () => {
-    return fetch('https://vast-fortress-54223.herokuapp.com/api/pets/dogs', {
+    return fetch(`${config.API_ENDPOINT}/pets/dogs`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     })
