@@ -37,7 +37,7 @@ export default class AdoptionPage extends Component {
                             <li key={cat.name}>
                                 <img alt={cat.name} src={cat.imageURL}></img>
                                 <p>Name: {cat.name}</p>
-                                <p>Sex: {cat.sex}</p>
+                                <p>Sex: {cat.gender}</p>
                                 <p>Age: {cat.age}</p>
                                 <p>Breed: {cat.breed}</p>
                                 <p>{cat.name}'s Story: {cat.story}</p>
@@ -52,7 +52,7 @@ export default class AdoptionPage extends Component {
                             <li key={dog.name}>
                                 <img src={dog.imageURL}></img>
                                 <p>Name: {dog.name}</p>
-                                <p>Sex: {dog.sex}</p>
+                                <p>Sex: {dog.gender}</p>
                                 <p>Age: {dog.age}</p>
                                 <p>Breed: {dog.breed}</p>
                                 <p>{dog.name}'s Story: {dog.story}</p>
